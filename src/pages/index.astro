@@ -1,0 +1,111 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+<Layout title="CampusConnect+ | Ingreso Duoc UC">
+  <main class="flex min-h-screen items-center justify-center bg-gradient-to-br from-blue-900 via-blue-800 to-slate-900 p-4">
+    <div class="w-full max-w-md rounded-2xl bg-white p-6 shadow-2xl">
+      <div class="mb-4 flex items-center gap-3">
+        <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-blue-700 text-lg font-bold text-white">C+</div>
+        <div>
+          <h1 class="text-xl font-bold leading-tight">CampusConnect+</h1>
+          <p class="text-sm text-slate-500">Duoc UC · Mockup por roles</p>
+        </div>
+      </div>
+
+      <form id="login-form" class="grid gap-3" novalidate>
+        <div>
+          <label class="mb-1 block text-xs font-semibold text-slate-600" for="email">Correo institucional</label>
+          <input
+            id="email"
+            name="email"
+            type="email"
+            required
+            autocomplete="username"
+            placeholder="alumno@duocuc.cl"
+            class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:border-blue-600 focus:outline-none"
+          />
+        </div>
+        <div>
+          <label class="mb-1 block text-xs font-semibold text-slate-600" for="password">Contraseña <span class="font-normal text-slate-400">(mock: se ignora)</span></label>
+          <input
+            id="password"
+            name="password"
+            type="password"
+            autocomplete="current-password"
+            placeholder="••••••••"
+            class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:border-blue-600 focus:outline-none"
+          />
+        </div>
+        <p id="login-error" class="hidden rounded-lg bg-red-50 px-3 py-2 text-xs font-medium text-red-700"></p>
+        <button class="rounded-lg bg-blue-700 py-2.5 text-sm font-bold text-white hover:bg-blue-800">Ingresar al dashboard</button>
+      </form>
+
+      <div class="mt-5 border-t border-slate-200 pt-4">
+        <p class="mb-2 text-xs font-bold uppercase tracking-wide text-slate-500">Accesos rápidos mock (solo estos 3)</p>
+        <div class="grid gap-2 text-sm">
+          <button data-email="alumno@duocuc.cl" class="quick-login rounded-lg border border-blue-200 bg-blue-50 px-3 py-2 text-left hover:bg-blue-100">
+            <span class="font-bold">Estudiante · Móvil</span><br />
+            <span class="text-xs text-slate-600">alumno@duocuc.cl — ve baños + reseñas</span>
+          </button>
+          <button data-email="aseo@duoc.cl" class="quick-login rounded-lg border border-emerald-200 bg-emerald-50 px-3 py-2 text-left hover:bg-emerald-100">
+            <span class="font-bold">Personal Aseo · Escritorio</span><br />
+            <span class="text-xs text-slate-600">aseo@duoc.cl — cambia estados de baños</span>
+          </button>
+          <button data-email="profesor@duoc.cl" class="quick-login rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-left hover:bg-amber-100">
+            <span class="font-bold">Docente · Escritorio</span><br />
+            <span class="text-xs text-slate-600">profesor@duoc.cl — baños lectura, sin reseñas</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    import { USERS, SESSION_KEY, loadData } from '../lib/mockData.js';
+
+    const form = document.getElementById('login-form');
+    const emailInput = document.getElementById('email');
+    const errorBox = document.getElementById('login-error');
+
+    // Si ya hay sesión, ir directo al dashboard
+    try {
+      if (sessionStorage.getItem(SESSION_KEY)) window.location.href = '/dashboard';
+    } catch {}
+
+    // Siembra datos mock en primer ingreso
+    try { loadData(); } catch {}
+
+    function showError(msg) {
+      if (!errorBox) return;
+      errorBox.textContent = msg;
+      errorBox.classList.remove('hidden');
+    }
+
+    function doLogin(rawEmail) {
+      const email = String(rawEmail ?? '').trim().toLowerCase();
+      const user = USERS[email];
+      if (!user) {
+        showError('Credencial no válida en el mock. Usa: alumno@duocuc.cl, aseo@duoc.cl o profesor@duoc.cl');
+        return;
+      }
+      // Password se ignora a propósito (mock por roles)
+      try {
+        sessionStorage.setItem(SESSION_KEY, JSON.stringify({ email, role: user.role }));
+      } catch {}
+      window.location.href = '/dashboard';
+    }
+
+    form?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      // @ts-ignore
+      doLogin(emailInput?.value);
+    });
+
+    document.querySelectorAll('.quick-login').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        // @ts-ignore
+        doLogin(btn.dataset.email);
+      });
+    });
+  </script>
+</Layout>
