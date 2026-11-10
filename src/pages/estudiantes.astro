@@ -1,0 +1,11 @@
+---
+import AppLayout from '../layouts/AppLayout.astro';
+import { ReviewsPage } from '../components/reviews/ReviewsPage';
+---
+<AppLayout
+  title="Reseñas de estudiantes | CampusConnect+"
+  description="Encuentra experiencias sobre el trabajo colaborativo con otros estudiantes de Duoc UC."
+  currentPath={Astro.url.pathname}
+>
+  <ReviewsPage kind="student" client:load />
+</AppLayout>

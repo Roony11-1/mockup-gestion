@@ -1,0 +1,11 @@
+---
+import AppLayout from '../layouts/AppLayout.astro';
+import { BathroomsPage } from '../components/bathrooms/BathroomsPage';
+---
+<AppLayout
+  title="Baños | CampusConnect+"
+  description="Consulta la disponibilidad, ubicación y horarios de limpieza de los baños de tu sede."
+  currentPath={Astro.url.pathname}
+>
+  <BathroomsPage client:load />
+</AppLayout>

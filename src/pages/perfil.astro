@@ -1,0 +1,11 @@
+---
+import AppLayout from '../layouts/AppLayout.astro';
+import { ProfilePage } from '../components/profile/ProfilePage';
+---
+<AppLayout
+  title="Mi perfil | CampusConnect+"
+  description="Revisa tu cuenta, los permisos de tu rol y los datos de demostración de CampusConnect+."
+  currentPath={Astro.url.pathname}
+>
+  <ProfilePage client:load />
+</AppLayout>

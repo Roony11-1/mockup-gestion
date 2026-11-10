@@ -3,20 +3,27 @@ import '../styles/global.css';
 
 interface Props {
   title?: string;
+  description?: string;
 }
 
-const { title = 'CampusConnect+ | Duoc UC' } = Astro.props;
+const {
+  title = 'CampusConnect+ | Duoc UC',
+  description = 'CampusConnect+ es la plataforma de la comunidad estudiantil de Duoc UC para consultar baños y compartir reseñas de docentes y estudiantes.',
+} = Astro.props;
 ---
 <!doctype html>
 <html lang="es">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#1e3a8a" />
+    <meta name="color-scheme" content="light" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
   </head>
-  <body class="min-h-screen bg-slate-100 text-slate-900 antialiased">
+  <body class="min-h-dvh bg-slate-50 text-slate-900 antialiased">
     <slot />
   </body>
 </html>
