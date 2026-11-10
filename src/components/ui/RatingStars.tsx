@@ -28,7 +28,7 @@ export function RatingStars({ value, count, showValue = true, size = 'md', class
         role="img"
         aria-label={`Calificación ${formatRating(clamped)} de 5 estrellas`}
       >
-        <span className="flex gap-0.5 text-slate-200" aria-hidden="true">
+        <span className="flex gap-0.5 text-line-strong" aria-hidden="true">
           {Array.from({ length: 5 }).map((_, index) => (
             <Star key={index} className={cn(starClass, 'shrink-0 fill-current')} strokeWidth={1.5} />
           ))}
@@ -38,7 +38,7 @@ export function RatingStars({ value, count, showValue = true, size = 'md', class
           style={{ width: `${percent}%` }}
           aria-hidden="true"
         >
-          <span className="flex gap-0.5 text-amber-500">
+          <span className="flex gap-0.5 text-warning">
             {Array.from({ length: 5 }).map((_, index) => (
               <Star key={index} className={cn(starClass, 'shrink-0 fill-current')} strokeWidth={1.5} />
             ))}
@@ -46,10 +46,10 @@ export function RatingStars({ value, count, showValue = true, size = 'md', class
         </span>
       </span>
       {showValue && (
-        <span className="text-sm font-semibold text-slate-800">{formatRating(clamped)}</span>
+        <span className="text-sm font-semibold text-ink">{formatRating(clamped)}</span>
       )}
       {typeof count === 'number' && (
-        <span className="text-xs text-slate-500">
+        <span className="text-xs text-muted">
           ({count} {count === 1 ? 'reseña' : 'reseñas'})
         </span>
       )}

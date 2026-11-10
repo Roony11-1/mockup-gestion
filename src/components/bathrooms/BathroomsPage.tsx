@@ -151,7 +151,7 @@ function BathroomsContent() {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="page-enter space-y-6">
       <PageHeader
         icon={Bath}
         eyebrow="Módulo de baños"
@@ -223,8 +223,8 @@ function BathroomsContent() {
         )}
       </Alert>
 
-      <div className="flex flex-wrap items-center gap-2 text-xs text-slate-500">
-        <span className="font-semibold text-slate-700">Estados:</span>
+      <div className="flex flex-wrap items-center gap-2 text-xs text-muted">
+        <span className="font-semibold text-ink-soft">Estados:</span>
         <BathroomStatusLegend />
       </div>
 
@@ -238,15 +238,15 @@ function BathroomsContent() {
       />
 
       <div className="flex flex-wrap items-center justify-between gap-2">
-        <p className="text-sm text-slate-600" role="status" aria-live="polite">
-          Mostrando <strong className="font-semibold text-slate-900">{filteredBathrooms.length}</strong> de{' '}
+        <p className="text-sm text-muted" role="status" aria-live="polite">
+          Mostrando <strong className="font-semibold text-ink">{filteredBathrooms.length}</strong> de{' '}
           {total} {total === 1 ? 'baño' : 'baños'}
         </p>
         {hasActiveFilters && (
           <button
             type="button"
             onClick={handleResetFilters}
-            className="text-sm font-semibold text-brand-700 hover:text-brand-900"
+            className="text-sm font-semibold text-brand transition-colors hover:text-brand-strong"
           >
             Quitar filtros
           </button>
@@ -288,7 +288,7 @@ function BathroomsContent() {
         )}
       </div>
 
-      <p className="text-xs text-slate-400">
+      <p className="text-xs leading-relaxed text-muted">
         {STATUS_META.Disponible.description} {STATUS_META['En limpieza'].description}{' '}
         {STATUS_META['Cerrado por mantenimiento'].description}
       </p>

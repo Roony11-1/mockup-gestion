@@ -19,6 +19,8 @@ import { initials } from '../../lib/format';
 import { clearSession } from '../../lib/session';
 import type { Role } from '../../lib/types';
 import { useSession } from '../../hooks/useSession';
+import { ThemeProvider } from '../theme/ThemeProvider';
+import { ThemeToggle } from '../theme/ThemeToggle';
 
 interface NavItem {
   href: string;
@@ -64,7 +66,7 @@ function getNavItems(role: Role): NavItem[] {
   items.push({
     href: '/perfil',
     label: 'Mi perfil',
-    description: 'Cuenta y permisos',
+    description: 'Cuenta, permisos y apariencia',
     icon: User,
   });
 
@@ -84,7 +86,15 @@ interface AppNavProps {
   currentPath: string;
 }
 
-export function AppNav({ currentPath }: AppNavProps) {
+export function AppNav(props: AppNavProps) {
+  return (
+    <ThemeProvider>
+      <AppNavContent {...props} />
+    </ThemeProvider>
+  );
+}
+
+function AppNavContent({ currentPath }: AppNavProps) {
   const { session, loading } = useSession();
   const [drawerOpen, setDrawerOpen] = useState(false);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
@@ -136,7 +146,7 @@ export function AppNav({ currentPath }: AppNavProps) {
 
   const navContent = (mobile: boolean) => (
     <nav className={cn('space-y-1', mobile ? 'px-3 py-4' : 'px-3 py-5')} aria-label="Módulos de la plataforma">
-      <p className="px-3 pb-2 text-[11px] font-semibold uppercase tracking-wider text-slate-400">
+      <p className="px-3 pb-2 text-[10px] font-semibold uppercase tracking-[0.18em] text-sidebar-muted/80">
         Plataforma
       </p>
       {items.map((item) => {
@@ -149,29 +159,36 @@ export function AppNav({ currentPath }: AppNavProps) {
             aria-current={active ? 'page' : undefined}
             onClick={() => setDrawerOpen(false)}
             className={cn(
-              'group flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm transition-colors',
+              'group relative flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm transition-all duration-200',
               active
-                ? 'bg-brand-50 text-brand-900 ring-1 ring-brand-100'
-                : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900',
+                ? 'bg-sidebar-ink/[0.09] text-sidebar-ink ring-1 ring-inset ring-sidebar-line'
+                : 'text-sidebar-muted hover:bg-sidebar-ink/[0.05] hover:text-sidebar-ink',
             )}
           >
             <span
               className={cn(
-                'flex h-9 w-9 shrink-0 items-center justify-center rounded-lg transition-colors',
+                'absolute left-0 top-1/2 h-5 w-0.5 -translate-y-1/2 rounded-full bg-brand transition-opacity duration-200',
+                active ? 'opacity-100' : 'opacity-0 group-hover:opacity-50',
+              )}
+              aria-hidden="true"
+            />
+            <span
+              className={cn(
+                'flex h-8 w-8 shrink-0 items-center justify-center rounded-md transition-colors duration-200',
                 active
-                  ? 'bg-brand-700 text-white'
-                  : 'bg-slate-100 text-slate-500 group-hover:bg-slate-200 group-hover:text-slate-700',
+                  ? 'bg-brand text-brand-ink'
+                  : 'bg-sidebar-ink/[0.06] text-sidebar-muted group-hover:text-sidebar-ink',
               )}
             >
-              <Icon className="h-[18px] w-[18px]" aria-hidden="true" />
+              <Icon className="h-4 w-4" aria-hidden="true" />
             </span>
             <span className="min-w-0 flex-1">
-              <span className={cn('block font-semibold', active ? 'text-brand-900' : 'text-slate-800')}>
+              <span className={cn('block font-semibold', active ? 'text-sidebar-ink' : 'text-sidebar-ink/90')}>
                 {item.label}
               </span>
-              <span className="block truncate text-xs text-slate-500">{item.description}</span>
+              <span className="block truncate text-[11px] text-sidebar-muted">{item.description}</span>
             </span>
-            {active && <ChevronRight className="h-4 w-4 shrink-0 text-brand-600" aria-hidden="true" />}
+            {active && <ChevronRight className="h-4 w-4 shrink-0 text-brand" aria-hidden="true" />}
           </a>
         );
       })}
@@ -179,10 +196,10 @@ export function AppNav({ currentPath }: AppNavProps) {
   );
 
   const userCard = (mobile: boolean) => (
-    <div className={cn('border-t border-slate-200', mobile ? 'p-4' : 'p-3')}>
+    <div className={cn('border-t border-sidebar-line', mobile ? 'p-4' : 'p-3')}>
       <a
         href="/perfil"
-        className="flex items-center gap-3 rounded-xl p-2 transition-colors hover:bg-slate-50"
+        className="flex items-center gap-3 rounded-lg p-2 transition-colors hover:bg-sidebar-ink/[0.06]"
       >
         <span
           className={cn(
@@ -193,14 +210,14 @@ export function AppNav({ currentPath }: AppNavProps) {
           {avatarLabel}
         </span>
         <span className="min-w-0 flex-1">
-          <span className="block truncate text-sm font-semibold text-slate-900">{meta.label}</span>
-          <span className="block truncate text-xs text-slate-500">{session.email}</span>
+          <span className="block truncate text-sm font-semibold text-sidebar-ink">{meta.label}</span>
+          <span className="block truncate text-xs text-sidebar-muted">{session.email}</span>
         </span>
       </a>
       <button
         type="button"
         onClick={handleLogout}
-        className="mt-2 flex w-full items-center justify-center gap-2 rounded-lg border border-slate-200 px-3 py-2 text-xs font-semibold text-slate-600 transition-colors hover:border-slate-300 hover:bg-slate-50 hover:text-slate-900"
+        className="mt-2 flex w-full items-center justify-center gap-2 rounded-lg border border-sidebar-line px-3 py-2 text-xs font-semibold text-sidebar-muted transition-colors hover:bg-sidebar-ink/[0.06] hover:text-sidebar-ink"
       >
         <LogOut className="h-4 w-4" aria-hidden="true" />
         Cerrar sesión
@@ -211,41 +228,44 @@ export function AppNav({ currentPath }: AppNavProps) {
   return (
     <>
       <aside
-        className="fixed inset-y-0 left-0 z-40 hidden w-72 flex-col border-r border-slate-200 bg-white lg:flex"
+        className="fixed inset-y-0 left-0 z-40 hidden w-72 flex-col border-r border-sidebar-line bg-sidebar lg:flex"
         aria-label="Navegación principal"
       >
         <a
           href="/dashboard"
-          className="flex h-16 shrink-0 items-center gap-3 border-b border-slate-200 px-5"
+          className="flex h-[4.5rem] shrink-0 items-center gap-3 border-b border-sidebar-line px-5"
         >
-          <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-700 text-sm font-extrabold tracking-tight text-white shadow-sm">
+          <span className="relative flex h-10 w-10 items-center justify-center rounded-lg bg-brand text-sm font-extrabold tracking-tight text-brand-ink shadow-sm">
             C+
+            <span className="absolute -right-0.5 -top-0.5 h-2 w-2 rounded-full bg-success ring-2 ring-sidebar" aria-hidden="true" />
           </span>
           <span>
-            <span className="block text-sm font-bold leading-tight text-slate-900">CampusConnect+</span>
-            <span className="block text-xs leading-tight text-slate-500">Duoc UC · Comunidad</span>
+            <span className="block font-display text-[15px] font-bold leading-tight text-sidebar-ink">
+              CampusConnect+
+            </span>
+            <span className="block text-[11px] leading-tight text-sidebar-muted">Duoc UC · Comunidad</span>
           </span>
         </a>
 
         <div className="flex-1 overflow-y-auto">{navContent(false)}</div>
 
         <div className="px-3 pb-2">
-          <div className="flex items-center gap-2 rounded-lg bg-slate-50 px-3 py-2 text-[11px] text-slate-500">
+          <div className="flex items-center gap-2 rounded-lg border border-sidebar-line bg-sidebar-2 px-3 py-2 text-[10px] leading-relaxed text-sidebar-muted">
             <FlaskConical className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
-            Datos de demostración
+            Datos de demostración locales
           </div>
         </div>
 
         {userCard(false)}
       </aside>
 
-      <header className="sticky top-0 z-30 border-b border-slate-200 bg-white/90 backdrop-blur lg:pl-72">
-        <div className="flex h-16 items-center gap-3 px-4 sm:px-6 lg:px-8">
+      <header className="sticky top-0 z-30 border-b border-line bg-header backdrop-blur-xl lg:pl-72">
+        <div className="flex h-[4.5rem] items-center gap-3 px-4 sm:px-6 lg:px-10">
           <button
             ref={menuButtonRef}
             type="button"
             onClick={() => setDrawerOpen(true)}
-            className="flex h-10 w-10 items-center justify-center rounded-lg border border-slate-200 text-slate-600 transition-colors hover:bg-slate-50 lg:hidden"
+            className="flex h-10 w-10 items-center justify-center rounded-lg border border-line bg-surface text-muted transition-colors hover:bg-surface-2 hover:text-ink lg:hidden"
             aria-label="Abrir menú de navegación"
             aria-expanded={drawerOpen}
             aria-controls="mobile-navigation"
@@ -254,15 +274,17 @@ export function AppNav({ currentPath }: AppNavProps) {
           </button>
 
           <div className="min-w-0 flex-1">
-            <p className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">
+            <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-muted">
               CampusConnect+
             </p>
-            <p className="truncate text-sm font-semibold text-slate-900">
+            <p className="truncate font-display text-sm font-bold text-ink">
               {activeItem?.label ?? 'Plataforma'}
             </p>
           </div>
 
-          <span className="hidden items-center gap-1.5 rounded-full bg-slate-100 px-2.5 py-1 text-[11px] font-semibold text-slate-600 md:inline-flex">
+          <ThemeToggle className="shrink-0" />
+
+          <span className="hidden items-center gap-1.5 rounded-full border border-line bg-surface-2 px-2.5 py-1 text-[11px] font-semibold text-muted md:inline-flex">
             <FlaskConical className="h-3.5 w-3.5" aria-hidden="true" />
             Demo
           </span>
@@ -279,7 +301,7 @@ export function AppNav({ currentPath }: AppNavProps) {
 
           <a
             href="/perfil"
-            className="hidden items-center gap-2 rounded-full border border-slate-200 py-1 pl-1 pr-3 transition-colors hover:bg-slate-50 xl:flex"
+            className="hidden items-center gap-2 rounded-full border border-line bg-surface py-1 pl-1 pr-3 transition-colors hover:bg-surface-2 xl:flex"
             aria-label="Ir a mi perfil"
           >
             <span
@@ -290,7 +312,7 @@ export function AppNav({ currentPath }: AppNavProps) {
             >
               {avatarLabel}
             </span>
-            <span className="max-w-40 truncate text-xs font-medium text-slate-600">{session.email}</span>
+            <span className="max-w-40 truncate text-xs font-medium text-muted">{session.email}</span>
           </a>
 
           <a
@@ -311,7 +333,7 @@ export function AppNav({ currentPath }: AppNavProps) {
           <button
             type="button"
             onClick={handleLogout}
-            className="flex h-10 w-10 items-center justify-center rounded-lg text-slate-500 transition-colors hover:bg-slate-100 hover:text-slate-900"
+            className="flex h-10 w-10 items-center justify-center rounded-lg text-muted transition-colors hover:bg-surface-2 hover:text-ink"
             aria-label="Cerrar sesión"
             title="Cerrar sesión"
           >
@@ -323,7 +345,7 @@ export function AppNav({ currentPath }: AppNavProps) {
       {drawerOpen && (
         <div className="fixed inset-0 z-50 lg:hidden" id="mobile-navigation">
           <div
-            className="animate-fade-in absolute inset-0 bg-slate-950/50 backdrop-blur-sm"
+            className="animate-fade-in absolute inset-0 bg-overlay backdrop-blur-sm"
             onClick={() => setDrawerOpen(false)}
             aria-hidden="true"
           />
@@ -331,23 +353,25 @@ export function AppNav({ currentPath }: AppNavProps) {
             role="dialog"
             aria-modal="true"
             aria-label="Menú de navegación"
-            className="animate-slide-in absolute inset-y-0 left-0 flex w-[min(20rem,86vw)] flex-col bg-white shadow-2xl"
+            className="animate-slide-in absolute inset-y-0 left-0 flex w-[min(20rem,86vw)] flex-col border-r border-sidebar-line bg-sidebar shadow-[var(--shadow-lg)]"
           >
-            <div className="flex h-16 shrink-0 items-center justify-between border-b border-slate-200 px-4">
+            <div className="flex h-[4.5rem] shrink-0 items-center justify-between border-b border-sidebar-line px-4">
               <a href="/dashboard" className="flex items-center gap-2.5" onClick={() => setDrawerOpen(false)}>
-                <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-brand-700 text-xs font-extrabold text-white">
+                <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-brand text-xs font-extrabold text-brand-ink">
                   C+
                 </span>
                 <span>
-                  <span className="block text-sm font-bold leading-tight">CampusConnect+</span>
-                  <span className="block text-[11px] leading-tight text-slate-500">Duoc UC</span>
+                  <span className="block font-display text-sm font-bold leading-tight text-sidebar-ink">
+                    CampusConnect+
+                  </span>
+                  <span className="block text-[11px] leading-tight text-sidebar-muted">Duoc UC</span>
                 </span>
               </a>
               <button
                 ref={closeButtonRef}
                 type="button"
                 onClick={() => setDrawerOpen(false)}
-                className="flex h-9 w-9 items-center justify-center rounded-lg text-slate-500 hover:bg-slate-100"
+                className="flex h-9 w-9 items-center justify-center rounded-lg text-sidebar-muted hover:bg-sidebar-ink/[0.06] hover:text-sidebar-ink"
                 aria-label="Cerrar menú de navegación"
               >
                 <X className="h-5 w-5" aria-hidden="true" />
@@ -357,9 +381,9 @@ export function AppNav({ currentPath }: AppNavProps) {
             <div className="flex-1 overflow-y-auto">{navContent(true)}</div>
 
             <div className="px-4 pb-2">
-              <div className="flex items-center gap-2 rounded-lg bg-slate-50 px-3 py-2 text-[11px] text-slate-500">
+              <div className="flex items-center gap-2 rounded-lg border border-sidebar-line bg-sidebar-2 px-3 py-2 text-[10px] leading-relaxed text-sidebar-muted">
                 <FlaskConical className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
-                Datos de demostración guardados en este navegador
+                Datos guardados en este navegador
               </div>
             </div>
 

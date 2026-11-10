@@ -81,7 +81,7 @@ export function Modal({ open, onClose, title, description, children, footer, siz
 
   return (
     <div
-      className="animate-fade-in fixed inset-0 z-[60] flex items-end justify-center overflow-y-auto bg-slate-950/50 p-0 backdrop-blur-sm sm:items-center sm:p-4"
+      className="animate-fade-in fixed inset-0 z-[60] flex items-end justify-center overflow-y-auto bg-overlay p-0 backdrop-blur-sm sm:items-center sm:p-4"
       onMouseDown={(event) => {
         if (event.target === event.currentTarget) onClose();
       }}
@@ -93,17 +93,17 @@ export function Modal({ open, onClose, title, description, children, footer, siz
         aria-labelledby={titleId}
         aria-describedby={description ? descriptionId : undefined}
         className={cn(
-          'relative max-h-[92dvh] w-full overflow-y-auto rounded-t-2xl bg-white shadow-2xl sm:rounded-2xl',
+          'animate-scale-in relative max-h-[92dvh] w-full overflow-y-auto rounded-t-xl border border-line bg-surface shadow-[var(--shadow-lg)] sm:rounded-xl',
           sizeClasses[size],
         )}
       >
-        <div className="sticky top-0 z-10 flex items-start justify-between gap-4 border-b border-slate-200 bg-white/95 px-5 py-4 backdrop-blur">
+        <div className="sticky top-0 z-10 flex items-start justify-between gap-4 border-b border-line bg-surface/95 px-5 py-4 backdrop-blur">
           <div>
-            <h2 id={titleId} className="text-lg font-bold text-slate-900">
+            <h2 id={titleId} className="font-display text-lg font-bold text-ink">
               {title}
             </h2>
             {description && (
-              <p id={descriptionId} className="mt-1 text-sm text-slate-600">
+              <p id={descriptionId} className="mt-1 text-sm text-muted">
                 {description}
               </p>
             )}
@@ -111,7 +111,7 @@ export function Modal({ open, onClose, title, description, children, footer, siz
           <button
             type="button"
             onClick={onClose}
-            className="rounded-lg p-1.5 text-slate-400 transition-colors hover:bg-slate-100 hover:text-slate-700"
+            className="rounded-lg p-1.5 text-muted transition-colors hover:bg-surface-2 hover:text-ink"
             aria-label="Cerrar ventana"
           >
             <X className="h-5 w-5" aria-hidden="true" />
@@ -119,7 +119,7 @@ export function Modal({ open, onClose, title, description, children, footer, siz
         </div>
         <div className="px-5 py-4">{children}</div>
         {footer && (
-          <div className="sticky bottom-0 flex flex-wrap justify-end gap-2 border-t border-slate-200 bg-slate-50/95 px-5 py-3 backdrop-blur">
+          <div className="sticky bottom-0 flex flex-wrap justify-end gap-2 border-t border-line bg-surface-2/95 px-5 py-3 backdrop-blur">
             {footer}
           </div>
         )}

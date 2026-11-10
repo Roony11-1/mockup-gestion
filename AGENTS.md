@@ -1,12 +1,28 @@
 ## Development
 
-When starting the dev server, use background mode:
+This project uses **pnpm** (`packageManager: pnpm@12.18.0`). Do not add `package-lock.json` or npm scripts.
 
-```
-astro dev --background
+```sh
+pnpm install
+pnpm dev
 ```
 
-Manage the background server with `astro dev stop`, `astro dev status`, and `astro dev logs`.
+When starting the dev server in the background:
+
+```sh
+pnpm dev:background
+```
+
+Manage it with `pnpm dev:status`, `pnpm dev:logs`, and `pnpm dev:stop`.
+
+If pnpm is not available globally, use `corepack pnpm <command>`.
+
+Before finishing a change, run:
+
+```sh
+pnpm check
+pnpm build
+```
 
 ## Documentation
 

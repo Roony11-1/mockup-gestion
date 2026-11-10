@@ -12,7 +12,7 @@ interface ReviewCardProps {
 
 export function ReviewCard({ review, kind, showSubject = false }: ReviewCardProps) {
   return (
-    <article className="rounded-xl border border-slate-200 bg-white p-4">
+    <article className="rounded-lg border border-line bg-surface-2/50 p-4">
       <div className="flex flex-wrap items-center justify-between gap-2">
         <div className="flex flex-wrap items-center gap-2">
           <RatingStars value={review.rating} size="sm" />
@@ -20,7 +20,7 @@ export function ReviewCard({ review, kind, showSubject = false }: ReviewCardProp
         </div>
         <time
           dateTime={review.createdAt ?? undefined}
-          className="text-xs text-slate-500"
+          className="text-xs text-muted"
           title={review.createdAt ? formatDate(review.createdAt) : undefined}
         >
           {formatDate(review.createdAt)}
@@ -28,12 +28,12 @@ export function ReviewCard({ review, kind, showSubject = false }: ReviewCardProp
       </div>
 
       {showSubject && (
-        <p className="mt-2 text-sm font-semibold text-slate-900">
+        <p className="mt-2 text-sm font-semibold text-ink">
           Reseña sobre {review.subject}
         </p>
       )}
 
-      <p className="mt-2 text-sm leading-relaxed text-slate-700">{review.comment}</p>
+      <p className="mt-2 text-sm leading-relaxed text-muted-strong">{review.comment}</p>
     </article>
   );
 }

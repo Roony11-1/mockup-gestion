@@ -13,7 +13,7 @@ const { title, description, currentPath } = Astro.props;
 <Layout title={title} description={description}>
   <a
     href="#contenido-principal"
-    class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[80] focus:rounded-lg focus:bg-white focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-slate-900 focus:shadow-lg"
+    class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[80] focus:rounded-lg focus:border focus:border-line focus:bg-surface focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-ink focus:shadow-[var(--shadow-md)]"
   >
     Saltar al contenido principal
   </a>
@@ -23,14 +23,15 @@ const { title, description, currentPath } = Astro.props;
   <div class="lg:pl-72">
     <main
       id="contenido-principal"
-      class="mx-auto w-full max-w-7xl px-4 py-6 sm:px-6 sm:py-8 lg:px-8"
+      class="mx-auto w-full max-w-[90rem] px-4 py-6 sm:px-6 sm:py-8 lg:px-10 lg:py-10"
     >
       <slot />
     </main>
 
-    <footer class="mx-auto w-full max-w-7xl px-4 pb-8 sm:px-6 lg:px-8">
-      <div class="border-t border-slate-200 pt-5 text-xs leading-relaxed text-slate-400">
-        <p>CampusConnect+ · Prototipo académico para Duoc UC · Los datos son de demostración.</p>
+    <footer class="mx-auto w-full max-w-[90rem] px-4 pb-8 sm:px-6 lg:px-10">
+      <div class="flex flex-col gap-2 border-t border-line pt-5 text-xs leading-relaxed text-muted sm:flex-row sm:items-center sm:justify-between">
+        <p>CampusConnect+ · Prototipo académico para Duoc UC</p>
+        <p>Los datos son de demostración y se guardan en este navegador.</p>
       </div>
     </footer>
   </div>

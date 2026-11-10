@@ -17,8 +17,8 @@ export const ROLE_META: Record<
     description:
       'Consulta la disponibilidad de baños y comparte experiencias sobre docentes y trabajo colaborativo.',
     interfaceLabel: 'Acceso completo a módulos de consulta y reseñas',
-    badgeClass: 'bg-brand-100 text-brand-800 ring-brand-200',
-    avatarClass: 'bg-brand-700 text-white',
+    badgeClass: 'bg-brand-soft text-brand ring-brand/25',
+    avatarClass: 'bg-brand text-brand-ink',
   },
   staff: {
     label: 'Personal de aseo',
@@ -26,8 +26,8 @@ export const ROLE_META: Record<
     description:
       'Actualiza el estado operativo de los baños y consulta la información de aseo de cada sede.',
     interfaceLabel: 'Gestión de baños, sin acceso a reseñas',
-    badgeClass: 'bg-emerald-100 text-emerald-800 ring-emerald-200',
-    avatarClass: 'bg-emerald-700 text-white',
+    badgeClass: 'bg-success-soft text-success-ink ring-success-line',
+    avatarClass: 'bg-success text-success-contrast',
   },
   teacher: {
     label: 'Docente',
@@ -35,8 +35,8 @@ export const ROLE_META: Record<
     description:
       'Consulta la disponibilidad de baños de la sede. Las reseñas están reservadas a estudiantes.',
     interfaceLabel: 'Consulta de baños en modo lectura',
-    badgeClass: 'bg-amber-100 text-amber-800 ring-amber-200',
-    avatarClass: 'bg-amber-700 text-white',
+    badgeClass: 'bg-warning-soft text-warning-ink ring-warning-line',
+    avatarClass: 'bg-warning text-warning-contrast',
   },
 };
 
@@ -56,28 +56,28 @@ export const STATUS_META: Record<
     label: 'Disponible',
     shortLabel: 'Disponible',
     description: 'El baño está operativo y abierto para la comunidad.',
-    badgeClass: 'bg-emerald-50 text-emerald-800 ring-emerald-200',
-    dotClass: 'bg-emerald-500',
-    softClass: 'bg-emerald-50 border-emerald-200 text-emerald-900',
-    barClass: 'bg-emerald-500',
+    badgeClass: 'bg-status-available-soft text-status-available-ink ring-status-available-line',
+    dotClass: 'bg-status-available-dot',
+    softClass: 'border-status-available-line bg-status-available-soft text-status-available-ink',
+    barClass: 'bg-status-available-solid',
   },
   'En limpieza': {
     label: 'En limpieza',
     shortLabel: 'En limpieza',
     description: 'El baño está siendo aseado y puede tener acceso restringido.',
-    badgeClass: 'bg-amber-50 text-amber-800 ring-amber-200',
-    dotClass: 'bg-amber-500',
-    softClass: 'bg-amber-50 border-amber-200 text-amber-900',
-    barClass: 'bg-amber-500',
+    badgeClass: 'bg-status-cleaning-soft text-status-cleaning-ink ring-status-cleaning-line',
+    dotClass: 'bg-status-cleaning-dot',
+    softClass: 'border-status-cleaning-line bg-status-cleaning-soft text-status-cleaning-ink',
+    barClass: 'bg-status-cleaning-solid',
   },
   'Cerrado por mantenimiento': {
     label: 'Cerrado por mantenimiento',
     shortLabel: 'Mantenimiento',
     description: 'El baño no está disponible por trabajos de mantenimiento.',
-    badgeClass: 'bg-red-50 text-red-800 ring-red-200',
-    dotClass: 'bg-red-500',
-    softClass: 'bg-red-50 border-red-200 text-red-900',
-    barClass: 'bg-red-500',
+    badgeClass: 'bg-status-closed-soft text-status-closed-ink ring-status-closed-line',
+    dotClass: 'bg-status-closed-dot',
+    softClass: 'border-status-closed-line bg-status-closed-soft text-status-closed-ink',
+    barClass: 'bg-status-closed-solid',
   },
 };
 

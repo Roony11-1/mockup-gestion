@@ -14,19 +14,19 @@ type Size = 'sm' | 'md';
 
 const variantClasses: Record<Variant, string> = {
   primary:
-    'bg-brand-700 text-white shadow-sm hover:bg-brand-800 active:bg-brand-900 disabled:bg-brand-300',
+    'bg-brand text-brand-ink shadow-[var(--shadow-sm)] hover:bg-brand-strong active:brightness-95 disabled:bg-brand/40 disabled:text-brand-ink/60',
   secondary:
-    'border border-slate-300 bg-white text-slate-700 shadow-sm hover:bg-slate-50 active:bg-slate-100 disabled:text-slate-400',
-  ghost: 'text-slate-600 hover:bg-slate-100 active:bg-slate-200 disabled:text-slate-300',
+    'border border-line bg-surface text-ink-soft shadow-[var(--shadow-sm)] hover:border-line-strong hover:bg-surface-2 active:bg-surface-3 disabled:text-muted',
+  ghost: 'text-muted hover:bg-surface-2 hover:text-ink active:bg-surface-3 disabled:text-muted/50',
   danger:
-    'bg-red-600 text-white shadow-sm hover:bg-red-700 active:bg-red-800 disabled:bg-red-300',
-  subtle: 'bg-brand-50 text-brand-800 hover:bg-brand-100 active:bg-brand-200 disabled:text-brand-300',
+    'bg-danger text-danger-contrast shadow-[var(--shadow-sm)] hover:bg-danger-strong active:brightness-95 disabled:opacity-45',
+  subtle: 'bg-brand-soft text-brand hover:bg-brand/12 active:bg-brand/18 disabled:text-muted',
   success:
-    'bg-emerald-600 text-white shadow-sm hover:bg-emerald-700 active:bg-emerald-800 disabled:bg-emerald-300',
+    'bg-success text-success-contrast shadow-[var(--shadow-sm)] hover:bg-success-strong active:brightness-95 disabled:opacity-45',
   inverse:
-    'bg-white text-brand-900 shadow-sm hover:bg-brand-50 active:bg-brand-100 disabled:bg-white/60',
+    'bg-inverse-surface text-inverse-ink shadow-[var(--shadow-sm)] hover:bg-inverse-hover active:brightness-95 disabled:opacity-50',
   onDark:
-    'border border-white/25 bg-white/5 text-white hover:bg-white/10 active:bg-white/15 disabled:text-white/40',
+    'border border-sidebar-line bg-sidebar-ink/10 text-sidebar-ink hover:bg-sidebar-ink/15 active:bg-sidebar-ink/20 disabled:text-sidebar-muted',
 };
 
 const sizeClasses: Record<Size, string> = {
@@ -36,7 +36,7 @@ const sizeClasses: Record<Size, string> = {
 
 export function buttonClasses(variant: Variant = 'primary', size: Size = 'md', className?: string) {
   return cn(
-    'inline-flex items-center justify-center gap-2 rounded-lg font-semibold transition-colors disabled:cursor-not-allowed',
+    'inline-flex items-center justify-center gap-2 rounded-lg font-semibold transition-all duration-200 disabled:cursor-not-allowed focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand',
     variantClasses[variant],
     sizeClasses[size],
     className,

@@ -113,12 +113,12 @@ export function ReviewForm({ kind, knownSubjects, prefill, onSubmit }: ReviewFor
   return (
     <Card id="review-form-card" className="scroll-mt-24 p-5">
       <div className="flex items-start gap-3">
-        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-brand-50 text-brand-700">
+        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-brand-soft text-brand">
           <PenLine className="h-5 w-5" aria-hidden="true" />
         </span>
         <div>
-          <h2 className="text-base font-bold text-slate-900">{config.formTitle}</h2>
-          <p className="mt-1 text-sm leading-relaxed text-slate-600">{config.formDescription}</p>
+          <h2 className="font-display text-base font-bold text-ink">{config.formTitle}</h2>
+          <p className="mt-1 text-sm leading-relaxed text-muted">{config.formDescription}</p>
         </div>
       </div>
 
@@ -160,8 +160,8 @@ export function ReviewForm({ kind, knownSubjects, prefill, onSubmit }: ReviewFor
         </FormField>
 
         <fieldset aria-describedby={errors.rating ? 'review-rating-error' : undefined}>
-          <legend className="text-sm font-semibold text-slate-800">
-            Calificación <span className="text-red-600" aria-hidden="true">*</span>
+          <legend className="text-sm font-semibold text-ink">
+            Calificación <span className="text-danger" aria-hidden="true">*</span>
             <span className="sr-only"> (obligatorio)</span>
           </legend>
           <div className="mt-1.5 flex flex-wrap items-center gap-1">
@@ -169,7 +169,7 @@ export function ReviewForm({ kind, knownSubjects, prefill, onSubmit }: ReviewFor
               <label
                 key={value}
                 htmlFor={`${kind}-rating-${value}`}
-                className="cursor-pointer rounded-lg p-1 transition-colors hover:bg-amber-50 focus-within:ring-2 focus-within:ring-brand-300"
+                className="cursor-pointer rounded-lg p-1 transition-colors hover:bg-warning-soft focus-within:ring-2 focus-within:ring-brand/40"
               >
                 <input
                   id={`${kind}-rating-${value}`}
@@ -186,7 +186,7 @@ export function ReviewForm({ kind, knownSubjects, prefill, onSubmit }: ReviewFor
                 <Star
                   className={cn(
                     'h-7 w-7 transition-colors',
-                    value <= rating ? 'fill-amber-400 text-amber-500' : 'text-slate-300',
+                    value <= rating ? 'fill-warning text-warning' : 'text-line-strong',
                   )}
                   aria-hidden="true"
                 />
@@ -195,12 +195,12 @@ export function ReviewForm({ kind, knownSubjects, prefill, onSubmit }: ReviewFor
                 </span>
               </label>
             ))}
-            <span className="ml-2 text-sm text-slate-600" aria-hidden="true">
+            <span className="ml-2 text-sm text-muted" aria-hidden="true">
               {rating ? `${rating} de 5` : 'Selecciona una calificación'}
             </span>
           </div>
           {errors.rating && (
-            <p id="review-rating-error" role="alert" className="mt-1.5 text-xs font-medium text-red-700">
+            <p id="review-rating-error" role="alert" className="mt-1.5 text-xs font-medium text-danger-ink">
               {errors.rating}
             </p>
           )}
@@ -235,12 +235,12 @@ export function ReviewForm({ kind, knownSubjects, prefill, onSubmit }: ReviewFor
             aria-describedby={errors.comment ? 'review-comment-error' : 'review-comment-hint'}
           />
         </FormField>
-        <p className="-mt-2 text-right text-xs text-slate-400" aria-hidden="true">
+        <p className="-mt-2 text-right text-xs text-muted" aria-hidden="true">
           {comment.length}/280
         </p>
 
         <div>
-          <label htmlFor="review-respectful" className="flex cursor-pointer items-start gap-2.5 text-sm leading-relaxed text-slate-600">
+          <label htmlFor="review-respectful" className="flex cursor-pointer items-start gap-2.5 text-sm leading-relaxed text-muted">
             <input
               ref={respectfulRef}
               id="review-respectful"
@@ -251,7 +251,7 @@ export function ReviewForm({ kind, knownSubjects, prefill, onSubmit }: ReviewFor
                 setRespectful(event.target.checked);
                 setErrors((current) => ({ ...current, respectful: undefined }));
               }}
-              className="mt-0.5 h-4 w-4 shrink-0 rounded border-slate-300 text-brand-700 focus:ring-brand-500"
+              className="mt-0.5 h-4 w-4 shrink-0 rounded border-line-strong bg-surface text-brand focus:ring-brand/40"
               aria-invalid={Boolean(errors.respectful)}
               aria-describedby={errors.respectful ? 'review-respectful-error' : undefined}
             />
@@ -261,7 +261,7 @@ export function ReviewForm({ kind, knownSubjects, prefill, onSubmit }: ReviewFor
             </span>
           </label>
           {errors.respectful && (
-            <p id="review-respectful-error" role="alert" className="mt-1.5 text-xs font-medium text-red-700">
+            <p id="review-respectful-error" role="alert" className="mt-1.5 text-xs font-medium text-danger-ink">
               {errors.respectful}
             </p>
           )}
@@ -270,7 +270,7 @@ export function ReviewForm({ kind, knownSubjects, prefill, onSubmit }: ReviewFor
         {formError && (
           <div
             role="alert"
-            className="flex gap-2 rounded-lg border border-red-200 bg-red-50 p-3 text-xs leading-relaxed text-red-800"
+            className="flex gap-2 rounded-lg border border-danger-line bg-danger-soft p-3 text-xs leading-relaxed text-danger-ink"
           >
             <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
             <p>{formError}</p>
@@ -282,7 +282,7 @@ export function ReviewForm({ kind, knownSubjects, prefill, onSubmit }: ReviewFor
           {config.submitLabel}
         </Button>
 
-        <p className="text-center text-[11px] leading-relaxed text-slate-400">
+        <p className="text-center text-[11px] leading-relaxed text-muted">
           Las reseñas se publican de inmediato en esta demostración y solo se guardan en tu
           navegador.
         </p>

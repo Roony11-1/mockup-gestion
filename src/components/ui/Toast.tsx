@@ -28,21 +28,24 @@ interface ToastContextValue {
 
 const ToastContext = createContext<ToastContextValue | null>(null);
 
-const variantStyles: Record<ToastVariant, { icon: ReactNode; border: string; iconColor: string }> = {
+const variantStyles: Record<ToastVariant, { icon: ReactNode; border: string; iconColor: string; rail: string }> = {
   success: {
     icon: <CheckCircle2 className="h-5 w-5" aria-hidden="true" />,
-    border: 'border-emerald-200',
-    iconColor: 'text-emerald-600',
+    border: 'border-success-line',
+    iconColor: 'text-success',
+    rail: 'bg-success',
   },
   error: {
     icon: <AlertCircle className="h-5 w-5" aria-hidden="true" />,
-    border: 'border-red-200',
-    iconColor: 'text-red-600',
+    border: 'border-danger-line',
+    iconColor: 'text-danger',
+    rail: 'bg-danger',
   },
   info: {
     icon: <Info className="h-5 w-5" aria-hidden="true" />,
-    border: 'border-brand-200',
-    iconColor: 'text-brand-600',
+    border: 'border-brand/30',
+    iconColor: 'text-brand',
+    rail: 'bg-brand',
   },
 };
 
@@ -87,7 +90,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
     <ToastContext.Provider value={{ toast }}>
       {children}
       <div
-        className="pointer-events-none fixed inset-x-4 bottom-4 z-[70] flex flex-col items-end gap-2 sm:left-auto sm:right-6 sm:bottom-6 sm:w-full sm:max-w-sm"
+        className="pointer-events-none fixed inset-x-4 bottom-4 z-[70] flex flex-col items-end gap-2 sm:bottom-6 sm:left-auto sm:right-6 sm:w-full sm:max-w-sm"
         aria-label="Notificaciones"
         role="region"
       >
@@ -99,21 +102,25 @@ export function ToastProvider({ children }: { children: ReactNode }) {
               key={item.id}
               role={variant === 'error' ? 'alert' : 'status'}
               className={cn(
-                'animate-toast-in pointer-events-auto flex w-full items-start gap-3 rounded-xl border bg-white p-4 shadow-lg shadow-slate-900/10',
+                'animate-toast-in pointer-events-auto relative flex w-full items-start gap-3 overflow-hidden rounded-xl border bg-surface p-4 pl-5 shadow-[var(--shadow-lg)]',
                 styles.border,
               )}
             >
+              <span
+                className={cn('absolute inset-y-0 left-0 w-1', styles.rail)}
+                aria-hidden="true"
+              />
               <span className={cn('mt-0.5 shrink-0', styles.iconColor)}>{styles.icon}</span>
               <div className="min-w-0 flex-1">
-                <p className="text-sm font-semibold text-slate-900">{item.title}</p>
+                <p className="text-sm font-semibold text-ink">{item.title}</p>
                 {item.description && (
-                  <p className="mt-1 text-sm leading-relaxed text-slate-600">{item.description}</p>
+                  <p className="mt-1 text-sm leading-relaxed text-muted">{item.description}</p>
                 )}
               </div>
               <button
                 type="button"
                 onClick={() => dismiss(item.id)}
-                className="rounded-md p-1 text-slate-400 transition-colors hover:bg-slate-100 hover:text-slate-700"
+                className="rounded-md p-1 text-muted transition-colors hover:bg-surface-2 hover:text-ink"
                 aria-label="Cerrar notificación"
               >
                 <X className="h-4 w-4" aria-hidden="true" />

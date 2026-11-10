@@ -33,10 +33,10 @@ export function BathroomFilters({
     <Card className="p-4 sm:p-5">
       <div className="flex flex-wrap items-center justify-between gap-2">
         <div className="flex items-center gap-2">
-          <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-slate-100 text-slate-600">
+          <span className="flex h-8 w-8 items-center justify-center rounded-md bg-surface-2 text-muted">
             <Filter className="h-4 w-4" aria-hidden="true" />
           </span>
-          <h2 className="text-sm font-bold text-slate-900">Buscar y filtrar baños</h2>
+          <h2 className="font-display text-sm font-bold text-ink">Buscar y filtrar baños</h2>
         </div>
         <Button variant="ghost" size="sm" onClick={onReset} disabled={!hasActiveFilters}>
           <RotateCcw className="h-3.5 w-3.5" aria-hidden="true" />
@@ -48,7 +48,7 @@ export function BathroomFilters({
         <FormField id="bathroom-search" label="Buscar" className="xl:col-span-1">
           <div className="relative">
             <Search
-              className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400"
+              className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted"
               aria-hidden="true"
             />
             <Input

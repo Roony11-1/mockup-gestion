@@ -19,7 +19,7 @@ export function SubjectCard({ group, config, onView, onWrite }: SubjectCardProps
   const latestReview = group.reviews[0];
 
   return (
-    <Card data-review-subject={group.key} className="flex flex-col p-5">
+    <Card data-review-subject={group.key} className="surface-hover flex flex-col p-5">
       <div className="flex items-start gap-3">
         <span
           className={cn(
@@ -31,10 +31,10 @@ export function SubjectCard({ group, config, onView, onWrite }: SubjectCardProps
           {initials(group.name)}
         </span>
         <div className="min-w-0 flex-1">
-          <h3 className="truncate text-base font-bold text-slate-900" title={group.name}>
+          <h3 className="truncate font-display text-base font-bold text-ink" title={group.name}>
             {group.name}
           </h3>
-          <p className="mt-0.5 text-xs text-slate-500">
+          <p className="mt-0.5 text-xs text-muted">
             {count} {count === 1 ? 'reseña' : 'reseñas'}
             {group.latest && <> · Actividad {formatRelative(group.latest)}</>}
           </p>
@@ -46,12 +46,12 @@ export function SubjectCard({ group, config, onView, onWrite }: SubjectCardProps
       </div>
 
       {latestReview && (
-        <p className="mt-3 line-clamp-3 flex-1 text-sm leading-relaxed text-slate-600">
+        <p className="mt-3 line-clamp-3 flex-1 text-sm leading-relaxed text-muted-strong">
           “{latestReview.comment}”
         </p>
       )}
 
-      <div className="mt-4 flex flex-wrap gap-2 border-t border-slate-100 pt-3">
+      <div className="mt-4 flex flex-wrap gap-2 border-t border-line pt-3">
         <Button variant="secondary" size="sm" onClick={onView}>
           <MessageSquare className="h-3.5 w-3.5" aria-hidden="true" />
           Ver reseñas

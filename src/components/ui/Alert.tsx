@@ -9,23 +9,23 @@ const styles: Record<
   { wrap: string; icon: string; Icon: typeof Info }
 > = {
   info: {
-    wrap: 'border-brand-200 bg-brand-50/80',
-    icon: 'text-brand-700',
+    wrap: 'border-brand/25 bg-brand-soft/70',
+    icon: 'text-brand',
     Icon: Info,
   },
   success: {
-    wrap: 'border-emerald-200 bg-emerald-50/80',
-    icon: 'text-emerald-700',
+    wrap: 'border-success-line bg-success-soft/70',
+    icon: 'text-success',
     Icon: CheckCircle2,
   },
   warning: {
-    wrap: 'border-amber-200 bg-amber-50/80',
-    icon: 'text-amber-700',
+    wrap: 'border-warning-line bg-warning-soft/70',
+    icon: 'text-warning',
     Icon: AlertCircle,
   },
   privacy: {
-    wrap: 'border-violet-200 bg-violet-50/80',
-    icon: 'text-violet-700',
+    wrap: 'border-violet-line bg-violet-soft/70',
+    icon: 'text-violet',
     Icon: ShieldCheck,
   },
 };
@@ -45,8 +45,8 @@ export function Alert({ variant = 'info', title, children, icon = true, classNam
     <div className={cn('flex gap-3 rounded-xl border p-4', style.wrap, className)} role="note">
       {icon && <Icon className={cn('mt-0.5 h-5 w-5 shrink-0', style.icon)} aria-hidden="true" />}
       <div className="min-w-0">
-        <p className="text-sm font-semibold text-slate-900">{title}</p>
-        {children && <div className="mt-1 text-sm leading-relaxed text-slate-600">{children}</div>}
+        <p className="text-sm font-semibold text-ink">{title}</p>
+        {children && <div className="mt-1 text-sm leading-relaxed text-muted-strong">{children}</div>}
       </div>
     </div>
   );
@@ -54,11 +54,11 @@ export function Alert({ variant = 'info', title, children, icon = true, classNam
 
 export function PrivacyNote({ children }: { children: ReactNode }) {
   return (
-    <div className="flex gap-3 rounded-xl border border-slate-200 bg-slate-50 p-4">
-      <Lock className="mt-0.5 h-5 w-5 shrink-0 text-slate-500" aria-hidden="true" />
+    <div className="flex gap-3 rounded-xl border border-line bg-surface p-4 shadow-[var(--shadow-sm)]">
+      <Lock className="mt-0.5 h-5 w-5 shrink-0 text-muted" aria-hidden="true" />
       <div className="min-w-0">
-        <p className="text-sm font-semibold text-slate-900">Privacidad del proyecto</p>
-        <div className="mt-1 text-sm leading-relaxed text-slate-600">{children}</div>
+        <p className="text-sm font-semibold text-ink">Privacidad del proyecto</p>
+        <div className="mt-1 text-sm leading-relaxed text-muted">{children}</div>
       </div>
     </div>
   );

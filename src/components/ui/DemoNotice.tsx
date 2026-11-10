@@ -6,13 +6,13 @@ export function DemoNotice({ children, className }: { children?: ReactNode; clas
   return (
     <div
       className={cn(
-        'flex items-start gap-2.5 rounded-xl border border-slate-200 bg-white/70 px-3.5 py-3 text-xs leading-relaxed text-slate-500',
+        'flex items-start gap-2.5 rounded-xl border border-line bg-surface-2/60 px-3.5 py-3 text-xs leading-relaxed text-muted',
         className,
       )}
     >
-      <FlaskConical className="mt-0.5 h-4 w-4 shrink-0 text-slate-400" aria-hidden="true" />
+      <FlaskConical className="mt-0.5 h-4 w-4 shrink-0 text-muted" aria-hidden="true" />
       <p>
-        <span className="font-semibold text-slate-700">Entorno de demostración.</span>{' '}
+        <span className="font-semibold text-ink-soft">Entorno de demostración.</span>{' '}
         {children ?? 'La información se guarda localmente en este navegador y no proviene de un servidor institucional.'}
       </p>
     </div>

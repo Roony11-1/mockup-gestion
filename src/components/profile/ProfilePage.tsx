@@ -28,14 +28,18 @@ import { PageHeader } from '../ui/PageHeader';
 import { PrivacyNote } from '../ui/Alert';
 import { StatCard } from '../ui/StatCard';
 import { ToastProvider, useToast } from '../ui/Toast';
+import { ThemeProvider } from '../theme/ThemeProvider';
+import { ThemeSelector } from '../theme/ThemeSelector';
 
 const ALL_ROLES: Role[] = ['student', 'staff', 'teacher'];
 
 export function ProfilePage() {
   return (
-    <ToastProvider>
-      <ProfileContent />
-    </ToastProvider>
+    <ThemeProvider>
+      <ToastProvider>
+        <ProfileContent />
+      </ToastProvider>
+    </ThemeProvider>
   );
 }
 
@@ -91,12 +95,12 @@ function ProfileContent() {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="page-enter space-y-6">
       <PageHeader
         icon={User}
         eyebrow="Cuenta"
         title="Mi perfil"
-        description="Revisa tu cuenta, los permisos asociados a tu rol y la información almacenada por esta demostración."
+        description="Revisa tu cuenta, los permisos asociados a tu rol, la apariencia de la plataforma y la información almacenada por esta demostración."
         badge={
           <Badge variant="brand" icon={<ShieldCheck className="h-3 w-3" aria-hidden="true" />}>
             {meta.label}
@@ -110,61 +114,65 @@ function ProfileContent() {
         }
       />
 
+      <Card className="p-5 sm:p-6">
+        <ThemeSelector />
+      </Card>
+
       <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_22rem]">
         <div className="space-y-6">
           <Card className="p-5 sm:p-6">
             <div className="flex flex-col gap-4 sm:flex-row sm:items-start">
               <span
-                className={`flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl text-xl font-bold ${meta.avatarClass}`}
+                className={`flex h-16 w-16 shrink-0 items-center justify-center rounded-xl text-xl font-bold ${meta.avatarClass}`}
                 aria-hidden="true"
               >
                 {session.email.slice(0, 1).toUpperCase()}
               </span>
               <div className="min-w-0 flex-1">
                 <div className="flex flex-wrap items-center gap-2">
-                  <h2 className="text-xl font-bold text-slate-900">{meta.label}</h2>
+                  <h2 className="font-display text-xl font-bold text-ink">{meta.label}</h2>
                   <Badge variant="brand">{meta.interfaceLabel}</Badge>
                 </div>
-                <p className="mt-1 break-all text-sm text-slate-600">{session.email}</p>
-                <p className="mt-3 text-sm leading-relaxed text-slate-600">{meta.description}</p>
+                <p className="mt-1 break-all text-sm text-muted">{session.email}</p>
+                <p className="mt-3 text-sm leading-relaxed text-muted">{meta.description}</p>
               </div>
             </div>
 
-            <dl className="mt-5 grid gap-4 border-t border-slate-100 pt-4 sm:grid-cols-2">
+            <dl className="mt-5 grid gap-4 border-t border-line pt-4 sm:grid-cols-2">
               <div>
-                <dt className="text-xs font-semibold uppercase tracking-wide text-slate-500">Sesión</dt>
-                <dd className="mt-1 text-sm text-slate-800">Activa en esta pestaña del navegador</dd>
+                <dt className="text-xs font-semibold uppercase tracking-wide text-muted">Sesión</dt>
+                <dd className="mt-1 text-sm text-ink-soft">Activa en esta pestaña del navegador</dd>
               </div>
               <div>
-                <dt className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                <dt className="text-xs font-semibold uppercase tracking-wide text-muted">
                   Almacenamiento
                 </dt>
-                <dd className="mt-1 text-sm text-slate-800">Datos locales de demostración</dd>
+                <dd className="mt-1 text-sm text-ink-soft">Datos locales de demostración</dd>
               </div>
             </dl>
           </Card>
 
           <Card className="p-5 sm:p-6">
             <div className="flex items-center gap-2">
-              <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-brand-50 text-brand-700">
+              <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-brand-soft text-brand">
                 <ShieldCheck className="h-4 w-4" aria-hidden="true" />
               </span>
               <div>
-                <h2 className="text-lg font-bold text-slate-900">Permisos de tu rol</h2>
-                <p className="text-sm text-slate-600">
+                <h2 className="font-display text-lg font-bold text-ink">Permisos de tu rol</h2>
+                <p className="text-sm text-muted">
                   Acciones habilitadas para la cuenta {meta.label.toLowerCase()}.
                 </p>
               </div>
             </div>
 
-            <ul className="mt-4 divide-y divide-slate-100">
+            <ul className="mt-4 divide-y divide-line">
               {CAPABILITIES.map((capability) => {
                 const enabled = capability.roles.includes(session.role);
                 return (
                   <li key={capability.id} className="flex items-start gap-3 py-3 first:pt-0 last:pb-0">
                     <span
                       className={`mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full ${
-                        enabled ? 'bg-emerald-50 text-emerald-700' : 'bg-slate-100 text-slate-400'
+                        enabled ? 'bg-success-soft text-success' : 'bg-surface-2 text-muted'
                       }`}
                     >
                       {enabled ? (
@@ -174,8 +182,8 @@ function ProfileContent() {
                       )}
                     </span>
                     <div className="min-w-0 flex-1">
-                      <p className="text-sm font-semibold text-slate-900">{capability.label}</p>
-                      <p className="mt-0.5 text-sm text-slate-600">{capability.description}</p>
+                      <p className="text-sm font-semibold text-ink">{capability.label}</p>
+                      <p className="mt-0.5 text-sm text-muted">{capability.description}</p>
                     </div>
                     <Badge variant={enabled ? 'success' : 'neutral'} className="shrink-0">
                       {enabled ? 'Habilitado' : 'No disponible'}
@@ -196,12 +204,12 @@ function ProfileContent() {
           <Card className="p-5 sm:p-6">
             <div className="flex flex-wrap items-start justify-between gap-3">
               <div className="flex items-start gap-3">
-                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-amber-50 text-amber-700">
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-warning-soft text-warning">
                   <Database className="h-5 w-5" aria-hidden="true" />
                 </span>
                 <div>
-                  <h2 className="text-lg font-bold text-slate-900">Datos de demostración</h2>
-                  <p className="mt-1 max-w-xl text-sm leading-relaxed text-slate-600">
+                  <h2 className="font-display text-lg font-bold text-ink">Datos de demostración</h2>
+                  <p className="mt-1 max-w-xl text-sm leading-relaxed text-muted">
                     Restablece los baños y las reseñas a su estado inicial. Esta acción elimina los
                     cambios y las reseñas publicadas en este navegador.
                   </p>
@@ -231,37 +239,38 @@ function ProfileContent() {
 
             <DemoNotice className="mt-4">
               Los datos se guardan en localStorage y la sesión en sessionStorage. Al cerrar la
-              pestaña, la sesión se elimina.
+              pestaña, la sesión se elimina. La preferencia de apariencia también se guarda en este
+              navegador.
             </DemoNotice>
           </Card>
         </div>
 
         <aside className="space-y-4">
           <Card className="p-5">
-            <h2 className="text-base font-bold text-slate-900">Sobre CampusConnect+</h2>
-            <p className="mt-2 text-sm leading-relaxed text-slate-600">
+            <h2 className="font-display text-base font-bold text-ink">Sobre CampusConnect+</h2>
+            <p className="mt-2 text-sm leading-relaxed text-muted">
               Plataforma académica para consultar la disponibilidad de baños y compartir
               experiencias de la comunidad estudiantil de Duoc UC.
             </p>
-            <div className="mt-4 space-y-2 text-sm text-slate-600">
+            <div className="mt-4 space-y-2 text-sm text-muted">
               <p className="flex items-center gap-2">
-                <CheckCircle2 className="h-4 w-4 shrink-0 text-emerald-600" aria-hidden="true" />
+                <CheckCircle2 className="h-4 w-4 shrink-0 text-success" aria-hidden="true" />
                 Información de baños centralizada
               </p>
               <p className="flex items-center gap-2">
-                <CheckCircle2 className="h-4 w-4 shrink-0 text-emerald-600" aria-hidden="true" />
+                <CheckCircle2 className="h-4 w-4 shrink-0 text-success" aria-hidden="true" />
                 Reseñas con enfoque respetuoso
               </p>
               <p className="flex items-center gap-2">
-                <CheckCircle2 className="h-4 w-4 shrink-0 text-emerald-600" aria-hidden="true" />
-                Permisos diferenciados por rol
+                <CheckCircle2 className="h-4 w-4 shrink-0 text-success" aria-hidden="true" />
+                Temas claro, oscuro y sistema
               </p>
             </div>
           </Card>
 
           <Card className="p-5">
-            <h2 className="text-base font-bold text-slate-900">Sesión</h2>
-            <p className="mt-2 text-sm leading-relaxed text-slate-600">
+            <h2 className="font-display text-base font-bold text-ink">Sesión</h2>
+            <p className="mt-2 text-sm leading-relaxed text-muted">
               Puedes cerrar sesión cuando termines. Volverás a la pantalla de ingreso.
             </p>
             <Button variant="secondary" className="mt-4 w-full" onClick={handleLogout}>

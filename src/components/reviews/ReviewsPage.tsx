@@ -193,7 +193,7 @@ function ReviewsContent({ kind }: { kind: ReviewKind }) {
   );
 
   return (
-    <div className="space-y-6">
+    <div className="page-enter space-y-6">
       <PageHeader
         icon={Icon}
         eyebrow={config.eyebrow}
@@ -251,17 +251,17 @@ function ReviewsContent({ kind }: { kind: ReviewKind }) {
 
       <Card className="p-4 sm:p-5">
         <div className="flex items-center gap-2">
-          <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-slate-100 text-slate-600">
+          <span className="flex h-8 w-8 items-center justify-center rounded-md bg-surface-2 text-muted">
             <SlidersHorizontal className="h-4 w-4" aria-hidden="true" />
           </span>
-          <h2 className="text-sm font-bold text-slate-900">Buscar y ordenar reseñas</h2>
+          <h2 className="font-display text-sm font-bold text-ink">Buscar y ordenar reseñas</h2>
         </div>
 
         <div className="mt-4 grid gap-3 md:grid-cols-3">
           <FormField id="review-search" label="Buscar">
             <div className="relative">
               <Search
-                className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400"
+                className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted"
                 aria-hidden="true"
               />
               <Input
@@ -306,10 +306,10 @@ function ReviewsContent({ kind }: { kind: ReviewKind }) {
         </div>
 
         <div className="mt-3 flex flex-wrap items-center justify-between gap-2">
-          <p className="text-sm text-slate-600" role="status" aria-live="polite">
-            Mostrando <strong className="font-semibold text-slate-900">{filteredGroups.length}</strong>{' '}
+          <p className="text-sm text-muted" role="status" aria-live="polite">
+            Mostrando <strong className="font-semibold text-ink">{filteredGroups.length}</strong>{' '}
             {filteredGroups.length === 1 ? config.subjectSingular : config.subjectPlural} con{' '}
-            <strong className="font-semibold text-slate-900">{filteredReviewCount}</strong>{' '}
+            <strong className="font-semibold text-ink">{filteredReviewCount}</strong>{' '}
             {filteredReviewCount === 1 ? 'reseña' : 'reseñas'}
           </p>
           <Button variant="ghost" size="sm" onClick={clearFilters} disabled={!hasFilters}>
@@ -322,10 +322,10 @@ function ReviewsContent({ kind }: { kind: ReviewKind }) {
       <div className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_22rem]">
         <section className="space-y-4" aria-labelledby="subjects-heading">
           <div>
-            <h2 id="subjects-heading" className="text-lg font-bold text-slate-900">
+            <h2 id="subjects-heading" className="font-display text-lg font-bold text-ink">
               {config.subjectPluralCapitalized}
             </h2>
-            <p className="mt-1 text-sm text-slate-600">
+            <p className="mt-1 text-sm text-muted">
               Selecciona un resultado para leer sus reseñas o escribe una nueva experiencia.
             </p>
           </div>

@@ -9,7 +9,7 @@ import type {
 import { cn } from '../../lib/cn';
 
 const controlClasses =
-  'w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 shadow-sm transition-colors placeholder:text-slate-400 hover:border-slate-400 focus:border-brand-500 focus:outline-none focus:ring-4 focus:ring-brand-100 disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-500 aria-[invalid=true]:border-red-400 aria-[invalid=true]:focus:ring-red-100';
+  'w-full rounded-lg border border-line bg-surface px-3 py-2 text-sm text-ink shadow-[var(--shadow-sm)] transition-colors duration-200 placeholder:text-muted/70 hover:border-line-strong focus:border-brand focus:outline-none focus:ring-4 focus:ring-brand/10 disabled:cursor-not-allowed disabled:bg-surface-2 disabled:text-muted aria-[invalid=true]:border-danger aria-[invalid=true]:focus:ring-danger/10';
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   ref?: Ref<HTMLInputElement>;
@@ -32,11 +32,17 @@ interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
 }
 
 export function Textarea({ className, ref, ...props }: TextareaProps) {
-  return <textarea ref={ref} className={cn(controlClasses, 'resize-y leading-relaxed', className)} {...props} />;
+  return (
+    <textarea
+      ref={ref}
+      className={cn(controlClasses, 'resize-y leading-relaxed', className)}
+      {...props}
+    />
+  );
 }
 
 export function Label({ className, ...props }: LabelHTMLAttributes<HTMLLabelElement>) {
-  return <label className={cn('block text-sm font-semibold text-slate-800', className)} {...props} />;
+  return <label className={cn('block text-sm font-semibold text-ink', className)} {...props} />;
 }
 
 interface FormFieldProps {
@@ -55,7 +61,7 @@ export function FormField({ id, label, hint, error, required, children, classNam
       <Label htmlFor={id}>
         {label}
         {required && (
-          <span className="ml-1 text-red-600" aria-hidden="true">
+          <span className="ml-1 text-danger" aria-hidden="true">
             *
           </span>
         )}
@@ -63,12 +69,12 @@ export function FormField({ id, label, hint, error, required, children, classNam
       </Label>
       {children}
       {hint && !error && (
-        <p id={`${id}-hint`} className="text-xs leading-relaxed text-slate-500">
+        <p id={`${id}-hint`} className="text-xs leading-relaxed text-muted">
           {hint}
         </p>
       )}
       {error && (
-        <p id={`${id}-error`} role="alert" className="text-xs font-medium text-red-700">
+        <p id={`${id}-error`} role="alert" className="text-xs font-medium text-danger-ink">
           {error}
         </p>
       )}

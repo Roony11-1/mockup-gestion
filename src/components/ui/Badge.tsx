@@ -4,13 +4,13 @@ import { cn } from '../../lib/cn';
 type BadgeVariant = 'neutral' | 'brand' | 'success' | 'warning' | 'danger' | 'violet' | 'sky';
 
 const variants: Record<BadgeVariant, string> = {
-  neutral: 'bg-slate-100 text-slate-700 ring-slate-200',
-  brand: 'bg-brand-50 text-brand-800 ring-brand-200',
-  success: 'bg-emerald-50 text-emerald-800 ring-emerald-200',
-  warning: 'bg-amber-50 text-amber-800 ring-amber-200',
-  danger: 'bg-red-50 text-red-800 ring-red-200',
-  violet: 'bg-violet-50 text-violet-800 ring-violet-200',
-  sky: 'bg-sky-50 text-sky-800 ring-sky-200',
+  neutral: 'bg-surface-2 text-muted-strong ring-line',
+  brand: 'bg-brand-soft text-brand ring-brand/25',
+  success: 'bg-success-soft text-success-ink ring-success-line',
+  warning: 'bg-warning-soft text-warning-ink ring-warning-line',
+  danger: 'bg-danger-soft text-danger-ink ring-danger-line',
+  violet: 'bg-violet-soft text-violet-ink ring-violet-line',
+  sky: 'bg-sky-soft text-sky-ink ring-sky-line',
 };
 
 interface BadgeProps {
